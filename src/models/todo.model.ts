@@ -1,7 +1,11 @@
 import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {TodoList} from './todo-list.model';
 
-@model()
+@model({
+  settings: {
+    strictObjectIDCoercion: true,
+  },
+})
 export class Todo extends Entity {
   @property({
     type: 'string',

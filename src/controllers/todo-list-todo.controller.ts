@@ -15,21 +15,19 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  TodoList,
-  Todo,
-} from '../models';
+import {TodoList, Todo} from '../models';
 import {TodoListRepository} from '../repositories';
 
 export class TodoListTodoController {
   constructor(
-    @repository(TodoListRepository) protected todoListRepository: TodoListRepository,
-  ) { }
+    @repository(TodoListRepository)
+    protected todoListRepository: TodoListRepository,
+  ) {}
 
   @get('/todo-lists/{id}/todos', {
     responses: {
       '200': {
-        description: 'Array of Todo\'s belonging to TodoList',
+        description: "Array of Todo's belonging to TodoList",
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Todo)},
@@ -61,11 +59,12 @@ export class TodoListTodoController {
           schema: getModelSchemaRef(Todo, {
             title: 'NewTodoInTodoList',
             exclude: ['_id'],
-            optional: ['todoListId']
+            optional: ['todoListId'],
           }),
         },
       },
-    }) todo: Omit<Todo, '_id'>,
+    })
+    todo: Omit<Todo, '_id'>,
   ): Promise<Todo> {
     return this.todoListRepository.todos(id).create(todo);
   }
